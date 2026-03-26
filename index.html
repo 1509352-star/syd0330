@@ -4,23 +4,18 @@
     <meta charset="UTF-8">
     <title>🎂 生日快乐</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
-        }
         body {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffecd2 100%);
             min-height: 100vh;
             padding: 20px;
+            font-family: "Microsoft Yahei", sans-serif;
         }
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.95);
+            background: white;
             padding: 15px;
             text-align: center;
             z-index: 100;
@@ -28,148 +23,77 @@
         .nav button {
             padding: 10px 25px;
             margin: 0 5px;
-            border: none;
-            border-radius: 25px;
-            background: #f0f0f0;
-            color: #666;
             cursor: pointer;
-            font-size: 16px;
-        }
-        .nav button:hover {
-            background: #ff6b6b;
-            color: white;
+            border: none;
+            border-radius: 20px;
+            background: #f0f0f0;
         }
         .nav button.active {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            background: #ff6b6b;
             color: white;
         }
         .container {
             padding-top: 80px;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
         .page {
             display: none;
-            animation: fadeIn 0.5s ease;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            margin-top: 20px;
         }
         .page.show {
             display: block;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         .text-center {
             text-align: center;
         }
-        .birthday-title {
-            font-size: 48px;
-            font-weight: bold;
+        .title {
+            font-size: 36px;
             color: #ff6b6b;
-            margin: 30px 0;
-        }
-        .cake {
-            font-size: 120px;
-            margin: 30px 0;
-            cursor: pointer;
-        }
-        .cake:hover {
-            transform: scale(1.1);
+            margin-bottom: 20px;
         }
         .btn {
-            padding: 15px 50px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            padding: 12px 30px;
+            background: #ff6b6b;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 20px;
             cursor: pointer;
-            margin: 20px 10px;
-        }
-        .btn:hover {
-            transform: scale(1.05);
+            font-size: 16px;
+            margin-top: 20px;
         }
         .btn-next {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #667eea;
         }
         .photo-wall {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 30px 0;
+            gap: 15px;
+            margin: 20px 0;
         }
         .photo-item {
             aspect-ratio: 1;
             background: #f0f0f0;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .message-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-        .message-content {
-            font-size: 18px;
-            line-height: 2;
-            color: #555;
-        }
-        .message-content p {
-            margin-bottom: 20px;
-        }
-        .signature {
-            text-align: right;
-            margin-top: 30px;
-            color: #ff6b6b;
-        }
-        .gift-box {
-            font-size: 120px;
-            margin: 30px 0;
-            cursor: pointer;
-        }
-        .gift-box:hover {
-            transform: scale(1.1);
-        }
-        .necklace {
-            font-size: 80px;
-            margin: 30px 0;
-        }
-        .hint {
-            color: #999;
-            font-size: 16px;
-            margin: 20px 0;
-        }
-        .hearts-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .photo-item img {
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            object-fit: cover;
         }
-        .heart {
-            position: absolute;
-            font-size: 30px;
-            animation: float 6s infinite;
-            opacity: 0.3;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        .emoji-big {
+            font-size: 80px;
+            margin: 20px 0;
+            cursor: pointer;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
-    <div class="hearts-bg" id="hearts"></div>
-
     <div class="nav">
         <button onclick="goToPage(0)" id="nav0" class="active">首页</button>
         <button onclick="goToPage(1)" id="nav1">回忆</button>
@@ -179,155 +103,137 @@
     </div>
 
     <div class="container">
-        <!-- 首页 -->
         <div id="page0" class="page show text-center">
-            <div class="birthday-title">🎂 生日快乐！🎂</div>
-            <p style="font-size: 20px; color: #666;">今天是你的19岁生日，准备好了吗？</p>
-            <div class="cake" onclick="clickCake()" id="cakeEmoji">🎂</div>
-            <p class="hint" id="hint1">点击蛋糕看看有什么惊喜~</p>
-            <button class="btn btn-next" style="display: none;" id="nextBtn1" onclick="goToPage(1)">开始探索 →</button>
+            <div class="title">🎂 生日快乐！🎂</div>
+            <p>今天是你的19岁生日，准备好了吗？</p>
+            <div class="emoji-big" onclick="clickCake()" id="cake">🎂</div>
+            <p id="hint1">点击蛋糕看看~</p>
+            <button class="btn btn-next" style="display: none;" id="btn1" onclick="goToPage(1)">下一页 →</button>
         </div>
 
-        <!-- 回忆页 -->
         <div id="page1" class="page text-center">
-            <div class="birthday-title">📸 我们的回忆</div>
-            <p class="hint">每一张照片都是我们的故事</p>
+            <div class="title">📸 我们的回忆</div>
+            <p>每一张照片都是我们的故事</p>
             <div class="photo-wall">
-                <div class="photo-item">📷</div>
-                <div class="photo-item">🌸</div>
-                <div class="photo-item">🌟</div>
-                <div class="photo-item">💑</div>
-                <div class="photo-item">🎈</div>
-                <div class="photo-item">🌙</div>
-                <div class="photo-item">☕</div>
-                <div class="photo-item">🎬</div>
-                <div class="photo-item">🎵</div>
+                <div class="photo-item"><img src="photo1.jpg" alt="1"></div>
+                <div class="photo-item"><img src="photo2.jpg" alt="2"></div>
+                <div class="photo-item"><img src="photo3.jpg" alt="3"></div>
+                <div class="photo-item"><img src="photo4.jpg" alt="4"></div>
+                <div class="photo-item"><img src="photo5.jpg" alt="5"></div>
+                <div class="photo-item"><img src="photo6.jpg" alt="6"></div>
+                <div class="photo-item"><img src="photo7.jpg" alt="7"></div>
+                <div class="photo-item"><img src="photo8.jpg" alt="8"></div>
+                <div class="photo-item"><img src="photo9.jpg" alt="9"></div>
             </div>
-            <p class="hint">（把你们的照片放到这里，替换掉emoji）</p>
             <button class="btn btn-next" onclick="goToPage(2)">下一页 →</button>
         </div>
 
-        <!-- 时光页 -->
-        <div id="page2" class="page">
-            <div class="birthday-title text-center">📝 我们的时光</div>
-            <div class="message-card">
-                <div class="message-content">
-                    <p><strong>✨ 第一次见面</strong></p>
-                    <p>还记得第一次见到你的时候，感觉就像在昨天一样。</p>
-                    <p>那时候的场景现在想起来还是很清晰。</p>
-                    <p><br></p>
-                    <p><strong>💕 在一起</strong></p>
-                    <p>2024年5月25日，我们在一起了。</p>
-                    <p>这是我最开心的一天。</p>
-                    <p><br></p>
-                    <p><strong>😊 开心的日子</strong></p>
-                    <p>和你在一起的每一天都很开心。</p>
-                    <p>一起笑过，一起闹过，一起经历了很多。</p>
-                    <p><br></p>
-                    <p><strong>🎂 今天</strong></p>
-                    <p>你19岁了，生日快乐！</p>
-                    <p>这是我陪你过的又一个生日。</p>
-                </div>
+        <div id="page2" class="page text-center">
+            <div class="title">📝 我们的时光</div>
+            <div style="background: #ff6b6b; color: white; padding: 20px; border-radius: 15px; display: inline-block;">
+                <div style="font-size: 36px;" id="days">--</div>
+                <div>天</div>
             </div>
-            <div class="text-center">
-                <button class="btn btn-next" onclick="goToPage(3)">下一页 →</button>
+            <p>我们已经在一起这么久啦 💝</p>
+            <div style="text-align: left; margin-top: 20px;">
+                <p><strong>🌸 某个特别的瞬间</strong></p>
+                <p>（在这里写一个让你印象深刻的瞬间）</p>
+                <br>
+                <p><strong>💫 你最可爱的样子</strong></p>
+                <p>（描述她某个让你心动的样子）</p>
+                <br>
+                <p><strong>🌟 我们的小约定</strong></p>
+                <p>（写一些你们约定好要一起做的事）</p>
+                <br>
+                <p><strong>☕ 日常的小温暖</strong></p>
+                <p>（写一些普通但温暖的日常）</p>
             </div>
+            <button class="btn btn-next" onclick="goToPage(3)">下一页 →</button>
         </div>
 
-        <!-- 留言页 -->
-        <div id="page3" class="page">
-            <div class="birthday-title text-center">💌 想对你说</div>
-            <div class="message-card">
-                <div class="message-content">
+        <div id="page3" class="page text-center">
+            <div class="title">💌 想对你说</div>
+            <div id="env-box">
+                <div class="emoji-big" onclick="openLetter()" id="env">💌</div>
+                <p id="hint2">点击信封打开~</p>
+            </div>
+            <div id="letter-box" style="display: none; text-align: left;">
+                <div style="background: #fff9f0; padding: 30px; border-radius: 15px; border: 2px dashed #ffd89b;">
                     <p>生日快乐呀。</p>
                     <p>今天你19岁了，时间过得真快。</p>
                     <p>还记得我们第一次见面的时候，感觉就像在昨天一样。和你在一起的每一天，都挺开心的。</p>
                     <p>你笑起来很好看，发脾气的时候也很可爱。不管是开心的事还是不开心的事，能和你一起分享，我都觉得很幸运。</p>
                     <p>新的一岁，希望你能做自己想做的事，去自己想去的地方。不用太着急，慢慢来就好。</p>
                     <p>我会一直在你身边的。</p>
+                    <p style="text-align: right; margin-top: 20px; color: #ff6b6b;">—— 你的某某</p>
                 </div>
-                <div class="signature">—— 你的某某</div>
-            </div>
-            <div class="text-center">
                 <button class="btn btn-next" onclick="goToPage(4)">下一页 →</button>
             </div>
         </div>
 
-        <!-- 礼物页 -->
         <div id="page4" class="page text-center">
-            <div class="birthday-title">🎁 生日礼物</div>
-            <div class="gift-box" onclick="openGift()" id="giftEmoji">🎁</div>
-            <p class="hint" id="hint2">点击盒子打开礼物~</p>
-            <div id="necklaceReveal" style="display: none;">
-                <div class="necklace">📿</div>
+            <div class="title">🎁 生日礼物</div>
+            <div class="emoji-big" onclick="openGift()" id="gift">🎁</div>
+            <p id="hint3">点击盒子打开~</p>
+            <div id="gift-box" style="display: none;">
+                <div class="emoji-big">📿</div>
                 <p style="font-size: 24px; color: #ff6b6b;">生日快乐！</p>
-                <p style="font-size: 18px; color: #666; line-height: 1.8;">
-                    这是给你的项链，<br>
-                    希望你喜欢。<br><br>
-                    就像我会一直在你身边一样，<br>
-                    它也会一直陪着你。<br><br>
-                    💝
-                </p>
+                <p>这是给你的项链，希望你喜欢。</p>
+                <p>就像我会一直在你身边一样，它也会一直陪着你。</p>
+                <p>💝</p>
             </div>
         </div>
     </div>
 
     <script>
         let cakeClicked = false;
+        let letterOpened = false;
         let giftOpened = false;
 
-        // 初始化背景爱心
-        function initHearts() {
-            const container = document.getElementById('hearts');
-            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
-            setInterval(function() {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                container.appendChild(heart);
-                setTimeout(function() {
-                    if (heart.parentNode) heart.parentNode.removeChild(heart);
-                }, 8000);
-            }, 800);
+        function goToPage(n) {
+            for (let i = 0; i < 5; i++) {
+                document.getElementById('nav' + i).classList.remove('active');
+                document.getElementById('page' + i).classList.remove('show');
+            }
+            document.getElementById('nav' + n).classList.add('active');
+            document.getElementById('page' + n).classList.add('show');
         }
 
-        // 点击蛋糕
         function clickCake() {
             if (cakeClicked) return;
             cakeClicked = true;
-            document.getElementById('cakeEmoji').innerHTML = '🎉';
+            document.getElementById('cake').innerHTML = '🎉';
             document.getElementById('hint1').innerHTML = '生日快乐！';
-            document.getElementById('nextBtn1').style.display = 'inline-block';
+            document.getElementById('btn1').style.display = 'inline-block';
         }
 
-        // 打开礼物
+        function openLetter() {
+            if (letterOpened) return;
+            letterOpened = true;
+            document.getElementById('env').innerHTML = '✨';
+            document.getElementById('hint2').innerHTML = '';
+            setTimeout(function() {
+                document.getElementById('env-box').style.display = 'none';
+                document.getElementById('letter-box').style.display = 'block';
+            }, 300);
+        }
+
         function openGift() {
             if (giftOpened) return;
             giftOpened = true;
-            document.getElementById('giftEmoji').innerHTML = '✨';
-            document.getElementById('hint2').innerHTML = '';
-            document.getElementById('necklaceReveal').style.display = 'block';
+            document.getElementById('gift').innerHTML = '✨';
+            document.getElementById('hint3').innerHTML = '';
+            document.getElementById('gift-box').style.display = 'block';
         }
 
-        // 切换页面
-        function goToPage(pageIndex) {
-            // 更新导航
-            for (let i = 0; i < 5; i++) {
-                document.getElementById('nav' + i).classList.remove('active');
-            }
-            document.getElementById('nav' + pageIndex).classList.add('active');
-            
-            // 更新页面显示
-            for (let i = 0; i < 5; i++) {
-                document.getElementById('page' + i).classList.remove('show');
-            }
-            document.getElementById('page' + pageIndex).classList.add('show');
+        function calcDays() {
+            const together = new Date('2024-05-25');
+            const today = new Date();
+            const days = Math.ceil(Math.abs(today - together) / (1000 * 60 * 60 * 24));
+            document.getElementById('days').innerHTML = days;
         }
 
-        // 初始化
-        initHearts();
+        calcDays();
     </script>
 </body>
 </html>
