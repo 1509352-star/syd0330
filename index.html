@@ -1,330 +1,2698 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
- <meta charset="UTF-8">
- <title>🎂 生日快乐</title>
- <style>
- body {
- background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffecd2 100%);
- min-height: 100vh;
- padding: 20px;
- font-family: "Microsoft Yahei", sans-serif;
- }
- .nav {
- position: fixed;
- top: 0;
- left: 0;
- right: 0;
- background: rgba(255,255,255,0.95);
- padding: 15px;
- text-align: center;
- z-index: 100;
- box-shadow: 0 2px 20px rgba(0,0,0,0.1);
- }
- .nav button {
- padding: 10px 25px;
- margin: 0 5px;
- cursor: pointer;
- border: none;
- border-radius: 25px;
- background: #f0f0f0;
- font-size: 16px;
- transition: all 0.3s ease;
- }
- .nav button:hover {
- background: #ff6b6b;
- color: white;
- transform: translateY(-2px);
- }
- .nav button.active {
- background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
- color: white;
- box-shadow: 0 4px 15px rgba(255,107,107,0.3);
- }
- .container {
- padding-top: 80px;
- max-width: 800px;
- margin: 0 auto;
- }
- .page {
- display: none;
- padding: 40px;
- background: white;
- border-radius: 20px;
- margin-top: 20px;
- box-shadow: 0 10px 40px rgba(0,0,0,0.1);
- }
- .page.show {
- display: block;
- }
- .text-center {
- text-align: center;
- }
- .title {
- font-size: 36px;
- color: #ff6b6b;
- margin-bottom: 20px;
- font-weight: bold;
- text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
- }
- .btn {
- padding: 15px 40px;
- background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
- color: white;
- border: none;
- border-radius: 30px;
- cursor: pointer;
- font-size: 18px;
- margin-top: 20px;
- transition: all 0.3s ease;
- box-shadow: 0 4px 15px rgba(255,107,107,0.3);
- }
- .btn:hover {
- transform: scale(1.05);
- box-shadow: 0 6px 20px rgba(255,107,107,0.4);
- }
- .btn-next {
- background: linear-gradient(135deg, #667eea, #764ba2);
- box-shadow: 0 4px 15px rgba(102,126,234,0.3);
- }
- .btn-next:hover {
- box-shadow: 0 6px 20px rgba(102,126,234,0.4);
- }
- .photo-wall {
- display: grid;
- grid-template-columns: repeat(3, 1fr);
- gap: 25px;
- margin: 20px 0;
- }
- .photo-item {
- aspect-ratio: 1;
- background: #f0f0f0;
- border-radius: 15px;
- overflow: hidden;
- box-shadow: 0 4px 15px rgba(0,0,0,0.1);
- transition: all 0.3s ease;
- }
- .photo-item:hover {
- transform: scale(1.05);
- box-shadow: 0 8px 25px rgba(0,0,0,0.15);
- }
- .photo-item img {
- width: 100%;
- height: 100%;
- object-fit: cover;
- }
- .emoji-big {
- font-size: 80px;
- margin: 20px 0;
- cursor: pointer;
- display: inline-block;
- transition: transform 0.3s ease;
- }
- .emoji-big:hover {
- transform: scale(1.15);
- }
- .days-box {
- background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
- color: white;
- padding: 20px 40px;
- border-radius: 20px;
- display: inline-block;
- margin: 20px 0;
- box-shadow: 0 4px 15px rgba(255,107,107,0.3);
- }
- .days-box .days-num {
- font-size: 36px;
- font-weight: bold;
- }
- </style>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>🎂 生日快乐</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffecd2 0%,
+                    #fcb69f 50%,
+                    #ffecd2 100%
+                );
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+            font-family:
+                "Microsoft Yahei",
+                -apple-system,
+                BlinkMacSystemFont,
+                "PingFang SC",
+                sans-serif;
+
+            transition:
+                background .6s ease;
+        }
+
+
+        /* =========================
+           顶部导航
+           ========================= */
+
+        .nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 15px;
+
+            overflow-x: auto;
+
+            background:
+                rgba(255, 255, 255, .95);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 2px 20px rgba(0, 0, 0, .1);
+
+            scrollbar-width: none;
+        }
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav button {
+            flex-shrink: 0;
+
+            padding:
+                10px
+                22px;
+
+            cursor: pointer;
+
+            border: none;
+
+            border-radius: 25px;
+
+            background: #f0f0f0;
+
+            color: #333;
+
+            font-size: 16px;
+
+            transition:
+                all .3s ease;
+        }
+
+        .nav button:hover {
+            color: white;
+
+            background: #ff6b6b;
+
+            transform:
+                translateY(-2px);
+        }
+
+        .nav button.active {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b6b,
+                    #ff8e8e
+                );
+
+            box-shadow:
+                0 4px 15px
+                rgba(255, 107, 107, .3);
+        }
+
+
+        /* =========================
+           页面基础
+           ========================= */
+
+        .container {
+            padding-top: 80px;
+
+            width: 100%;
+
+            max-width: 980px;
+
+            margin: 0 auto;
+        }
+
+        .page {
+            display: none;
+
+            width: 100%;
+
+            max-width: 800px;
+
+            margin:
+                20px auto
+                0;
+
+            padding: 40px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 40px
+                rgba(0, 0, 0, .1);
+        }
+
+        .page.show {
+            display: block;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .title {
+            margin-bottom: 20px;
+
+            color: #ff6b6b;
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+            text-shadow:
+                2px 2px 4px
+                rgba(0, 0, 0, .1);
+        }
+
+
+        /* =========================
+           原有按钮
+           ========================= */
+
+        .btn {
+            margin-top: 20px;
+
+            padding:
+                15px
+                40px;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b6b,
+                    #ff8e8e
+                );
+
+            box-shadow:
+                0 4px 15px
+                rgba(255, 107, 107, .3);
+
+            transition:
+                all .3s ease;
+        }
+
+        .btn:hover {
+            transform:
+                scale(1.05);
+
+            box-shadow:
+                0 6px 20px
+                rgba(255, 107, 107, .4);
+        }
+
+        .btn-next {
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            box-shadow:
+                0 4px 15px
+                rgba(102, 126, 234, .3);
+        }
+
+        .btn-next:hover {
+            box-shadow:
+                0 6px 20px
+                rgba(102, 126, 234, .4);
+        }
+
+
+        /* =========================
+           首页 NEW
+           ========================= */
+
+        .new-entry-wrap {
+            margin:
+                28px auto
+                8px;
+
+            text-align: center;
+        }
+
+        .new-entry {
+            position: relative;
+
+            padding:
+                13px
+                34px;
+
+            border: none;
+
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff5d6c,
+                    #ff8d8d
+                );
+
+            box-shadow:
+                0 7px 22px
+                rgba(255, 93, 108, .35);
+
+            animation:
+                newPulse
+                2.2s
+                ease-in-out
+                infinite;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .new-entry:hover {
+            transform:
+                translateY(-3px)
+                scale(1.04);
+
+            box-shadow:
+                0 10px 30px
+                rgba(255, 93, 108, .45);
+        }
+
+        @keyframes newPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 7px 22px
+                    rgba(255, 93, 108, .28);
+            }
+
+            50% {
+                box-shadow:
+                    0 7px 32px
+                    rgba(255, 93, 108, .55);
+            }
+        }
+
+
+        /* =========================
+           原回忆照片
+           ========================= */
+
+        .photo-wall {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            margin:
+                20px 0;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+
+            overflow: hidden;
+
+            background: #f0f0f0;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, .1);
+
+            transition:
+                all .3s ease;
+        }
+
+        .photo-item:hover {
+            transform:
+                scale(1.05);
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, .15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        /* =========================
+           emoji
+           ========================= */
+
+        .emoji-big {
+            display: inline-block;
+
+            margin:
+                20px 0;
+
+            cursor: pointer;
+
+            font-size: 80px;
+
+            transition:
+                transform .3s ease;
+        }
+
+        .emoji-big:hover {
+            transform:
+                scale(1.15);
+        }
+
+
+        /* =========================
+           天数
+           ========================= */
+
+        .days-box {
+            display: inline-block;
+
+            margin:
+                20px 0;
+
+            padding:
+                20px
+                40px;
+
+            color: white;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b6b,
+                    #ff8e8e
+                );
+
+            box-shadow:
+                0 4px 15px
+                rgba(255, 107, 107, .3);
+        }
+
+        .days-box .days-num {
+            font-size: 36px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+           最后一页
+           ========================================================= */
+
+        body.farewell-mode {
+            background:
+                linear-gradient(
+                    135deg,
+                    #dcd5ca,
+                    #eee9e1,
+                    #d9d2c8
+                );
+        }
+
+        body.farewell-mode
+        .floating-hearts {
+            opacity: 0;
+        }
+
+        .farewell-page {
+            max-width: 940px;
+
+            padding: 0;
+
+            background: transparent;
+
+            border-radius: 0;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================
+           信纸
+           ========================= */
+
+        .letter {
+            position: relative;
+
+            overflow: hidden;
+
+            width: 100%;
+
+            padding:
+                76px
+                68px
+                95px;
+
+            color: #494440;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #fffdf7 0%,
+                    #fffaf1 100%
+                );
+
+            border:
+                1px solid
+                rgba(110, 90, 70, .09);
+
+            border-radius: 5px;
+
+            box-shadow:
+                0 22px 70px
+                rgba(45, 37, 30, .17);
+        }
+
+        .letter::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            opacity: .2;
+
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(100, 80, 60, .025)
+                    0px,
+                    rgba(100, 80, 60, .025)
+                    1px,
+                    transparent
+                    1px,
+                    transparent
+                    4px
+                );
+        }
+
+        .letter > * {
+            position: relative;
+
+            z-index: 1;
+        }
+
+
+        /* =========================
+           信头
+           ========================= */
+
+        .letter-header {
+            padding-bottom: 65px;
+
+            text-align: center;
+        }
+
+        .letter-date {
+            margin-bottom: 28px;
+
+            color: #aca39c;
+
+            font-size: 12px;
+
+            letter-spacing: 4px;
+        }
+
+        .letter-header h1 {
+            margin: 0;
+
+            color: #514a45;
+
+            font-family:
+                "Songti SC",
+                "STSong",
+                serif;
+
+            font-size: 37px;
+
+            font-weight: 400;
+
+            letter-spacing: 7px;
+        }
+
+        .letter-subtitle {
+            margin-top: 20px;
+
+            color: #aaa19a;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* =========================
+           信文字
+           ========================= */
+
+        .letter-text-block {
+            width: 100%;
+
+            max-width: 610px;
+
+            margin:
+                55px auto
+                70px;
+
+            color: #504a46;
+
+            font-family:
+                "Songti SC",
+                "STSong",
+                serif;
+
+            font-size: 17px;
+
+            line-height: 2.2;
+
+            letter-spacing: .5px;
+        }
+
+        .letter-text-block p {
+            margin:
+                0 0
+                24px;
+        }
+
+        .placeholder {
+            color: #a79e97;
+        }
+
+        .letter-quote {
+            max-width: 540px;
+
+            margin:
+                70px auto;
+
+            padding:
+                20px;
+
+            color: #918780;
+
+            font-family:
+                "Songti SC",
+                "STSong",
+                serif;
+
+            font-size: 15px;
+
+            line-height: 2;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           大封面
+           ========================= */
+
+        .farewell-hero {
+            margin:
+                10px auto
+                75px;
+
+            width: 100%;
+
+            max-width: 720px;
+        }
+
+        .farewell-hero img {
+            display: block;
+
+            width: 100%;
+
+            border-radius: 2px;
+
+            box-shadow:
+                0 10px 32px
+                rgba(40, 30, 20, .15);
+        }
+
+
+        /* =========================
+           照片基础
+           ========================= */
+
+        .letter-photo {
+            overflow: hidden;
+
+            padding: 8px;
+
+            background: #fff;
+
+            box-shadow:
+                0 8px 28px
+                rgba(40, 30, 20, .13);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .letter-photo:hover {
+            box-shadow:
+                0 13px 35px
+                rgba(40, 30, 20, .2);
+        }
+
+        .letter-photo img {
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            cursor: zoom-in;
+        }
+
+
+        /* =========================
+           她 · 第一组
+           ========================= */
+
+        .portrait-story {
+            display: grid;
+
+            grid-template-columns:
+                repeat(12, 1fr);
+
+            gap:
+                34px
+                24px;
+
+            margin:
+                60px 0
+                80px;
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+1) {
+            grid-column:
+                1 / span 6;
+
+            transform:
+                rotate(-1.1deg);
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+2) {
+            grid-column:
+                7 / span 6;
+
+            margin-top: 48px;
+
+            transform:
+                rotate(1deg);
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+3) {
+            grid-column:
+                2 / span 5;
+
+            transform:
+                rotate(.7deg);
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+4) {
+            grid-column:
+                7 / span 5;
+
+            margin-top: 22px;
+
+            transform:
+                rotate(-.8deg);
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+5) {
+            grid-column:
+                1 / span 7;
+
+            transform:
+                rotate(-.5deg);
+        }
+
+        .portrait-story
+        .letter-photo:nth-child(6n+6) {
+            grid-column:
+                8 / span 5;
+
+            margin-top: 54px;
+
+            transform:
+                rotate(1.1deg);
+        }
+
+
+        /* =========================
+           日常碎片
+           ========================= */
+
+        .daily-story {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin:
+                60px 0
+                85px;
+        }
+
+        .daily-story
+        .daily-item {
+            overflow: hidden;
+
+            border-radius: 3px;
+
+            background: #eee;
+        }
+
+        .daily-story
+        .daily-item:nth-child(2),
+        .daily-story
+        .daily-item:nth-child(5) {
+            transform:
+                translateY(30px);
+        }
+
+        .daily-story img {
+            display: block;
+
+            width: 100%;
+
+            height: 280px;
+
+            cursor: zoom-in;
+
+            object-fit: cover;
+        }
+
+
+        /* =========================
+           我们
+           ========================= */
+
+        .couple-story {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                34px
+                28px;
+
+            margin:
+                70px 0
+                85px;
+        }
+
+        .couple-card {
+            padding:
+                9px
+                9px
+                30px;
+
+            background: #fff;
+
+            box-shadow:
+                0 8px 25px
+                rgba(35, 28, 22, .13);
+        }
+
+        .couple-card:nth-child(odd) {
+            transform:
+                rotate(-1.1deg);
+        }
+
+        .couple-card:nth-child(even) {
+            transform:
+                rotate(1deg)
+                translateY(25px);
+        }
+
+        .couple-card img {
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            cursor: zoom-in;
+        }
+
+
+        /* =========================
+           信尾
+           ========================= */
+
+        .letter-ending {
+            max-width: 590px;
+
+            margin:
+                100px auto
+                20px;
+
+            font-family:
+                "Songti SC",
+                "STSong",
+                serif;
+
+            color: #514b47;
+
+            font-size: 17px;
+
+            line-height: 2.25;
+        }
+
+        .ending-line {
+            width: 42px;
+
+            height: 1px;
+
+            margin:
+                0 auto
+                50px;
+
+            background: #c8beb6;
+        }
+
+        .signature {
+            margin-top: 60px;
+
+            color: #77706b;
+
+            text-align: right;
+        }
+
+
+        /* =========================
+           Lightbox
+           ========================= */
+
+        .lightbox {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background:
+                rgba(15, 15, 15, .92);
+
+            cursor: zoom-out;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 95vw;
+
+            max-height: 92vh;
+
+            object-fit: contain;
+
+            box-shadow:
+                0 20px 70px
+                rgba(0, 0, 0, .4);
+        }
+
+
+        /* =========================
+           漂浮爱心
+           ========================= */
+
+        .floating-hearts {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            z-index: 0;
+
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+
+            transition:
+                opacity .5s ease;
+        }
+
+        .floating-heart {
+            position: absolute;
+
+            opacity: .4;
+
+            font-size: 20px;
+
+            animation:
+                floatUp
+                6s
+                infinite;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(100vh)
+                    rotate(0deg);
+            }
+
+            10% {
+                opacity: .4;
+            }
+
+            90% {
+                opacity: .4;
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-10vh)
+                    rotate(720deg);
+            }
+        }
+
+
+        /* =========================
+           手机适配
+           ========================= */
+
+        @media
+        (max-width: 700px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .nav {
+                justify-content: flex-start;
+
+                padding:
+                    10px
+                    8px;
+            }
+
+            .nav button {
+                padding:
+                    9px
+                    15px;
+
+                font-size: 14px;
+            }
+
+            .container {
+                padding-top: 65px;
+            }
+
+            .page {
+                padding:
+                    28px
+                    18px;
+            }
+
+            .title {
+                font-size: 29px;
+            }
+
+            .photo-wall {
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+                gap: 8px;
+            }
+
+            .farewell-page {
+                padding: 0;
+            }
+
+            .letter {
+                padding:
+                    48px
+                    18px
+                    65px;
+            }
+
+            .letter-header {
+                padding-bottom: 35px;
+            }
+
+            .letter-header h1 {
+                font-size: 28px;
+
+                letter-spacing: 5px;
+            }
+
+            .letter-text-block {
+                margin:
+                    40px auto
+                    55px;
+
+                font-size: 16px;
+
+                line-height: 2.05;
+            }
+
+            .farewell-hero {
+                margin-bottom: 55px;
+            }
+
+            .portrait-story {
+                gap:
+                    18px
+                    10px;
+
+                margin:
+                    45px 0
+                    60px;
+            }
+
+            .portrait-story
+            .letter-photo:nth-child(6n+1),
+            .portrait-story
+            .letter-photo:nth-child(6n+2),
+            .portrait-story
+            .letter-photo:nth-child(6n+3),
+            .portrait-story
+            .letter-photo:nth-child(6n+4),
+            .portrait-story
+            .letter-photo:nth-child(6n+5),
+            .portrait-story
+            .letter-photo:nth-child(6n+6) {
+                margin-top: 0;
+            }
+
+            .daily-story {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 8px;
+            }
+
+            .daily-story
+            .daily-item:nth-child(2),
+            .daily-story
+            .daily-item:nth-child(5) {
+                transform:
+                    translateY(14px);
+            }
+
+            .daily-story img {
+                height: 210px;
+            }
+
+            .couple-story {
+                gap:
+                    18px
+                    10px;
+            }
+
+            .couple-card {
+                padding:
+                    6px
+                    6px
+                    19px;
+            }
+
+            .couple-card:nth-child(even) {
+                transform:
+                    rotate(1deg)
+                    translateY(12px);
+            }
+
+            .letter-ending {
+                margin-top: 70px;
+
+                font-size: 16px;
+            }
+        }
+
+    </style>
 </head>
+
+
 <body>
- <div class="nav">
- <button onclick="goToPage(0)" id="nav0" class="active">首页</button>
- <button onclick="goToPage(1)" id="nav1">回忆</button>
- <button onclick="goToPage(2)" id="nav2">时光</button>
- <button onclick="goToPage(3)" id="nav3">留言</button>
- <button onclick="goToPage(4)" id="nav4">礼物</button>
- </div>
 
- <div class="container">
- <div id="page0" class="page show text-center">
- <div class="title">🎂 生日快乐！🎂</div>
- <p style="font-size: 18px; color: #666;">今天是你的19岁生日，宝宝，准备好了吗？</p>
- <div class="emoji-big" onclick="clickCake()" id="cake">🎂</div>
- <p id="hint1" style="color: #999; margin-top: 10px;">点击蛋糕看看~</p>
- <button class="btn btn-next" style="display: none;" id="btn1" onclick="goToPage(1)">下一页 →</button>
- </div>
 
- <div id="page1" class="page text-center">
- <div class="title">📸 我们的回忆</div>
- <p style="color: #666;">每一张照片都是我们的故事</p>
- <div class="photo-wall">
- <div class="photo-item"><img src="photo1.jpg" alt="1"></div>
- <div class="photo-item"><img src="photo2.jpg" alt="2"></div>
- <div class="photo-item"><img src="photo3.jpg" alt="3"></div>
- <div class="photo-item"><img src="photo4.jpg" alt="4"></div>
- <div class="photo-item"><img src="photo5.jpg" alt="5"></div>
- <div class="photo-item"><img src="photo6.jpg" alt="6"></div>
- <div class="photo-item"><img src="photo7.jpg" alt="7"></div>
- <div class="photo-item"><img src="photo8.jpg" alt="8"></div>
- <div class="photo-item"><img src="photo9.jpg" alt="9"></div>
- </div>
- <button class="btn btn-next" onclick="goToPage(2)">下一页 →</button>
- </div>
+    <!-- =========================
+         导航
+         ========================= -->
 
- <div id="page2" class="page text-center">
- <div class="title">📝 我们的时光</div>
- <div class="days-box">
- <div class="days-num" id="days">--</div>
- <div style="font-size: 18px; margin-top: 5px;">天</div>
- </div>
- <p style="color: #666; margin-top: 10px;">我们已经在一起这么久啦 💝</p>
- <div style="text-align: left; margin-top: 20px;">
- <p style="font-size: 18px; line-height: 2; color: #555;"><strong>🏖️玩玩玩！</strong></p>
- <p style="font-size: 18px; line-height: 2; color: #555;">我们一起去了好多好多个地方，每次和你一起旅行都是短暂的体验到我们终于有一个家的感觉，很幸福！</p>
- <br>
- <p style="font-size: 18px; line-height: 2; color: #555;"><strong>🛍️买买买！</strong></p>
- <p style="font-size: 18px; line-height: 2; color: #555;">虽然才19岁，但是某个人已经不知道生了多少个娃了！好吧好吧虽然娃们都好乖，喜欢！但是下次能不能一次少生几个...每一次都双胞胎三胞胎的</p>
- <br>
- <p style="font-size: 18px; line-height: 2; color: #555;"><strong>🥘 吃吃吃！</strong></p>
- <p style="font-size: 18px; line-height: 2; color: #555;">每次约会都会纠结于吃什么，但是至少每次都吃的很好吃！我的品味很不错吧！吃了这么多顿饭，还是只有一起吃夜宵最幸福了！</p>
- <br>
- <p style="font-size: 18px; line-height: 2; color: #555;"><strong>💞 爱爱爱！</strong></p>
- <p style="font-size: 18px; line-height: 2; color: #555;">在一起快两年啦宝宝，这也是我陪你过的第二个生日，陪伴了你最亮丽的18岁，希望以后每年你的生日我都和你一起过！</p>
- </div>
- <button class="btn btn-next" onclick="goToPage(3)">下一页 →</button>
- </div>
+    <div class="nav">
 
- <div id="page3" class="page text-center">
- <div class="title">💌生日留言</div>
- <div id="env-box">
- <div class="emoji-big" onclick="openLetter()" id="env">💌</div>
- <p id="hint2" style="color: #999; margin-top: 10px;">点击信封打开~</p>
- </div>
- <div id="letter-box" style="display: none; text-align: left;">
- <div style="background: #fff9f0; padding: 40px; border-radius: 20px; border: 3px dashed #ffd89b;">
- <p style="font-size: 18px; line-height: 2; color: #555;">生日快乐呀屁屁线宝宝！</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">今天你19岁啦，感觉时间过得好快，虽然高中的事情已经像上辈子了，但是在良木缘给你送手表的样子我现在都还记得！！嗯嗯不知道你今天戴没有</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">你其实肯定看的出来这些东西都是用ai写的，但是所有给你讲的话都是我发自肺腑的真情实感！！我也下了很多功夫哦！虽然水平还是很烂。但是我好歹也搞了一点学术！免得某个人说我不务正业不学习就没有魅力了，不要不喜欢我！</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">想起18岁生日之前给你写的备忘录，好青涩哦，还有去年生日给你写的好多好多封信，也不知道还在不在！</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">你的18岁跟之前都不一样，我们以前天天都能在一起，但是这一年我们却大多数时候都在分开。。我们也因此吵了好多次，闹了好多次，但是至少现在，我们还选择在一起，我们坚定对彼此的心意。</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">你总是觉得我不为我们的未来着想，但是其实，我一直都觉得我们能，我们会有一个美好的未来，会有一个温馨的小家，我们会一直幸福的生活在一起，因为不管发生什么，我都相信我们会一直在一起，不管是异地也好、异国也好，还是什么事情让我们分开，我都坚信我们会在一起，所以我一直都很乐观！（但是好像在你看来我就是不管我们的未来一样）</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">时间过的真的好快，也有可能是我们在一起的时间并不多的原因吧，当初和我漫步在锦江边的17岁的宝宝（虽然当时还没有在一起！）已经19岁啦，尽管都说女生永远18岁，但是长大一岁确实又变美丽了许多许多！！</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">这几天翻相册发现镜头中的你越变越漂亮（难道是我技术提高了？还是设备提升了？或许难道说我真的是摄影天才？），虽然你总说我情人眼里出西施吧。（但是我在你眼里怎么没有变成西施。）</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">我相信19岁的你会有更加精彩的生活，会获得更加丰富的阅历，最重要的是，我会一直在这里陪着你，陪伴我的小宝宝慢慢成长，等到我们最终拥有一个家</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">19岁生日快乐，小宝宝</p>
- <p style="font-size: 18px; line-height: 2; color: #555;">我爱你</p>
- </div>
- <button class="btn btn-next" onclick="goToPage(4)">下一页 →</button>
- </div>
- </div>
+        <button
+            onclick="goToPage(0)"
+            id="nav0"
+            class="active">
+            首页
+        </button>
 
- <div id="page4" class="page text-center">
- <div class="title">🎁 生日礼物</div>
- <div class="emoji-big" onclick="openGift()" id="gift">🎁</div>
- <p id="hint3" style="color: #999; margin-top: 10px;">点击盒子打开礼物~</p>
- <div id="gift-box" style="display: none;">
- <div class="emoji-big">📿</div>
- <p style="font-size: 24px; color: #ff6b6b; font-weight: bold; margin: 20px 0;">生日快乐！</p>
- <p style="font-size: 18px; color: #666; line-height: 2;">
- 希望这个项链<br>
- 能够陪伴你很久<br><br>
- 就像我们一样<br>
- 一直一直永远在一起<br><br>
- 💝
- </p>
- </div>
- </div>
- </div>
+        <button
+            onclick="goToPage(1)"
+            id="nav1">
+            回忆
+        </button>
 
- <script>
- let cakeClicked = false;
- let letterOpened = false;
- let giftOpened = false;
+        <button
+            onclick="goToPage(2)"
+            id="nav2">
+            时光
+        </button>
 
- function goToPage(n) {
- for (let i = 0; i < 5; i++) {
- document.getElementById('nav' + i).classList.remove('active');
- document.getElementById('page' + i).classList.remove('show');
- }
- document.getElementById('nav' + n).classList.add('active');
- document.getElementById('page' + n).classList.add('show');
- }
+        <button
+            onclick="goToPage(3)"
+            id="nav3">
+            留言
+        </button>
 
- function clickCake() {
- if (cakeClicked) return;
- cakeClicked = true;
- document.getElementById('cake').innerHTML = '🎉';
- document.getElementById('hint1').innerHTML = '生日快乐！';
- document.getElementById('btn1').style.display = 'inline-block';
- }
+        <button
+            onclick="goToPage(4)"
+            id="nav4">
+            礼物
+        </button>
 
- function openLetter() {
- if (letterOpened) return;
- letterOpened = true;
- document.getElementById('env').innerHTML = '✨';
- document.getElementById('hint2').innerHTML = '';
- setTimeout(function() {
- document.getElementById('env-box').style.display = 'none';
- document.getElementById('letter-box').style.display = 'block';
- }, 300);
- }
+        <button
+            onclick="goToPage(5)"
+            id="nav5">
+            最后一页
+        </button>
 
- function openGift() {
- if (giftOpened) return;
- giftOpened = true;
- document.getElementById('gift').innerHTML = '✨';
- document.getElementById('hint3').innerHTML = '';
- document.getElementById('gift-box').style.display = 'block';
- }
+    </div>
 
- function calcDays() {
- const together = new Date('2024-05-25');
- const today = new Date();
- const days = Math.ceil(Math.abs(today - together) / (1000 * 60 * 60 * 24));
- document.getElementById('days').innerHTML = days;
- }
 
- calcDays();
- </script>
-<style>
-   .floating-hearts {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       pointer-events: none;
-       z-index: 0;
-    }
-    .floating-heart {
-       position: absolute;
-       font-size: 20px;
-       animation: floatUp 6s infinite;
-       opacity: 0.4;
-   }
-   @keyframes floatUp {
-       0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-       10% { opacity: 0.4; }
-       90% { opacity: 0.4; }
-       100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
-   }
-</style>
-<div class="floating-hearts" id="hearts"></div>
-<script>
-   const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
-   const container = document.getElementById('hearts');
-   setInterval(function() {
-       const heart = document.createElement('div');
-       heart.className = 'floating-heart';
-       heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-       heart.style.left = Math.random() * 100 + '%';
-       heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-       container.appendChild(heart);
-       setTimeout(function() { heart.remove(); }, 7000);
-   }, 800);
-</script>
+
+    <div class="container">
+
+
+        <!-- =========================
+             PAGE 0 首页
+             ========================= -->
+
+        <div
+            id="page0"
+            class="page show text-center">
+
+            <div class="title">
+                🎂 生日快乐！🎂
+            </div>
+
+            <p
+                style="
+                    font-size:18px;
+                    color:#666;
+                ">
+                今天是你的19岁生日，宝宝，准备好了吗？
+            </p>
+
+
+            <!-- NEW 入口 -->
+
+            <div class="new-entry-wrap">
+
+                <button
+                    class="new-entry"
+                    onclick="goToPage(5)">
+                    NEW
+                </button>
+
+            </div>
+
+
+            <div
+                class="emoji-big"
+                onclick="clickCake()"
+                id="cake">
+                🎂
+            </div>
+
+            <p
+                id="hint1"
+                style="
+                    color:#999;
+                    margin-top:10px;
+                ">
+                点击蛋糕看看~
+            </p>
+
+            <button
+                class="btn btn-next"
+                style="display:none;"
+                id="btn1"
+                onclick="goToPage(1)">
+                下一页 →
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             PAGE 1 回忆
+             ========================= -->
+
+        <div
+            id="page1"
+            class="page text-center">
+
+            <div class="title">
+                📸 我们的回忆
+            </div>
+
+            <p style="color:#666;">
+                每一张照片都是我们的故事
+            </p>
+
+            <div class="photo-wall">
+
+                <div class="photo-item">
+                    <img
+                        src="photo1.jpg"
+                        alt="1">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo2.jpg"
+                        alt="2">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo3.jpg"
+                        alt="3">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo4.jpg"
+                        alt="4">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo5.jpg"
+                        alt="5">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo6.jpg"
+                        alt="6">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo7.jpg"
+                        alt="7">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo8.jpg"
+                        alt="8">
+                </div>
+
+                <div class="photo-item">
+                    <img
+                        src="photo9.jpg"
+                        alt="9">
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-next"
+                onclick="goToPage(2)">
+                下一页 →
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             PAGE 2 时光
+             ========================= -->
+
+        <div
+            id="page2"
+            class="page text-center">
+
+            <div class="title">
+                📝 我们的时光
+            </div>
+
+            <div class="days-box">
+
+                <div
+                    class="days-num"
+                    id="days">
+                    --
+                </div>
+
+                <div
+                    style="
+                        font-size:18px;
+                        margin-top:5px;
+                    ">
+                    天
+                </div>
+
+            </div>
+
+
+            <p
+                style="
+                    color:#666;
+                    margin-top:10px;
+                ">
+                我们已经在一起这么久啦 💝
+            </p>
+
+
+            <div
+                style="
+                    text-align:left;
+                    margin-top:20px;
+                ">
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    <strong>
+                        🏖️玩玩玩！
+                    </strong>
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    我们一起去了好多好多个地方，每次和你一起旅行都是短暂的体验到我们终于有一个家的感觉，很幸福！
+                </p>
+
+
+                <br>
+
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    <strong>
+                        🛍️买买买！
+                    </strong>
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    虽然才19岁，但是某个人已经不知道生了多少个娃了！好吧好吧虽然娃们都好乖，喜欢！但是下次能不能一次少生几个...每一次都双胞胎三胞胎的
+                </p>
+
+
+                <br>
+
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    <strong>
+                        🥘 吃吃吃！
+                    </strong>
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    每次约会都会纠结于吃什么，但是至少每次都吃的很好吃！我的品味很不错吧！吃了这么多顿饭，还是只有一起吃夜宵最幸福了！
+                </p>
+
+
+                <br>
+
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    <strong>
+                        💞 爱爱爱！
+                    </strong>
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        line-height:2;
+                        color:#555;
+                    ">
+                    在一起快两年啦宝宝，这也是我陪你过的第二个生日，陪伴了你最亮丽的18岁，希望以后每年你的生日我都和你一起过！
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn btn-next"
+                onclick="goToPage(3)">
+                下一页 →
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             PAGE 3 留言
+             ========================= -->
+
+        <div
+            id="page3"
+            class="page text-center">
+
+            <div class="title">
+                💌生日留言
+            </div>
+
+
+            <div id="env-box">
+
+                <div
+                    class="emoji-big"
+                    onclick="openLetter()"
+                    id="env">
+                    💌
+                </div>
+
+                <p
+                    id="hint2"
+                    style="
+                        color:#999;
+                        margin-top:10px;
+                    ">
+                    点击信封打开~
+                </p>
+
+            </div>
+
+
+            <div
+                id="letter-box"
+                style="
+                    display:none;
+                    text-align:left;
+                ">
+
+                <div
+                    style="
+                        background:#fff9f0;
+                        padding:40px;
+                        border-radius:20px;
+                        border:3px dashed #ffd89b;
+                    ">
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        生日快乐呀屁屁线宝宝！
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        今天你19岁啦，感觉时间过得好快，虽然高中的事情已经像上辈子了，但是在良木缘给你送手表的样子我现在都还记得！！嗯嗯不知道你今天戴没有
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        你其实肯定看的出来这些东西都是用ai写的，但是所有给你讲的话都是我发自肺腑的真情实感！！我也下了很多功夫哦！虽然水平还是很烂。但是我好歹也搞了一点学术！免得某个人说我不务正业不学习就没有魅力了，不要不喜欢我！
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        想起18岁生日之前给你写的备忘录，好青涩哦，还有去年生日给你写的好多好多封信，也不知道还在不在！
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        你的18岁跟之前都不一样，我们以前天天都能在一起，但是这一年我们却大多数时候都在分开。。我们也因此吵了好多次，闹了好多次，但是至少现在，我们还选择在一起，我们坚定对彼此的心意。
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        你总是觉得我不为我们的未来着想，但是其实，我一直都觉得我们能，我们会有一个美好的未来，会有一个温馨的小家，我们会一直幸福的生活在一起，因为不管发生什么，我都相信我们会一直在一起，不管是异地也好、异国也好，还是什么事情让我们分开，我都坚信我们会在一起，所以我一直都很乐观！（但是好像在你看来我就是不管我们的未来一样）
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        时间过的真的好快，也有可能是我们在一起的时间并不多的原因吧，当初和我漫步在锦江边的17岁的宝宝（虽然当时还没有在一起！）已经19岁啦，尽管都说女生永远18岁，但是长大一岁确实又变美丽了许多许多！！
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        这几天翻相册发现镜头中的你越变越漂亮（难道是我技术提高了？还是设备提升了？或许难道说我真的是摄影天才？），虽然你总说我情人眼里出西施吧。（但是我在你眼里怎么没有变成西施。）
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        我相信19岁的你会有更加精彩的生活，会获得更加丰富的阅历，最重要的是，我会一直在这里陪着你，陪伴我的小宝宝慢慢成长，等到我们最终拥有一个家
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        19岁生日快乐，小宝宝
+                    </p>
+
+                    <p style="font-size:18px;line-height:2;color:#555;">
+                        我爱你
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn btn-next"
+                    onclick="goToPage(4)">
+                    下一页 →
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             PAGE 4 礼物
+             ========================= -->
+
+        <div
+            id="page4"
+            class="page text-center">
+
+            <div class="title">
+                🎁 生日礼物
+            </div>
+
+            <div
+                class="emoji-big"
+                onclick="openGift()"
+                id="gift">
+                🎁
+            </div>
+
+            <p
+                id="hint3"
+                style="
+                    color:#999;
+                    margin-top:10px;
+                ">
+                点击盒子打开礼物~
+            </p>
+
+
+            <div
+                id="gift-box"
+                style="display:none;">
+
+                <div class="emoji-big">
+                    📿
+                </div>
+
+                <p
+                    style="
+                        font-size:24px;
+                        color:#ff6b6b;
+                        font-weight:bold;
+                        margin:20px 0;
+                    ">
+                    生日快乐！
+                </p>
+
+                <p
+                    style="
+                        font-size:18px;
+                        color:#666;
+                        line-height:2;
+                    ">
+                    希望这个项链
+                    <br>
+                    能够陪伴你很久
+
+                    <br><br>
+
+                    就像我们一样
+
+                    <br>
+
+                    一直一直永远在一起
+
+                    <br><br>
+
+                    💝
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PAGE 5 最后一页
+             ===================================================== -->
+
+        <div
+            id="page5"
+            class="page farewell-page">
+
+
+            <article class="letter">
+
+
+                <!-- 信头 -->
+
+                <header class="letter-header">
+
+                    <div class="letter-date">
+                        2026 / 09
+                    </div>
+
+                    <h1>
+                        最后一页
+                    </h1>
+
+                    <div class="letter-subtitle">
+                        SOME MEMORIES
+                    </div>
+
+                </header>
+
+
+
+                <!-- 第一段 -->
+
+                <section class="letter-text-block">
+
+                    <p class="placeholder">
+                        【第一段：这里写你为什么又回来给这个网站加了这一页。】
+                    </p>
+
+                    <p class="placeholder">
+                        【这里可以再写一两句，不需要很长。】
+                    </p>
+
+                </section>
+
+
+
+                <!-- 大图：夕阳 -->
+
+                <div class="farewell-hero">
+
+                    <img
+                        src="farewell06.jpg"
+                        alt=""
+                        onclick="openLightbox(this.src)">
+
+                </div>
+
+
+
+                <!-- 第二段 -->
+
+                <section class="letter-text-block">
+
+                    <p class="placeholder">
+                        【第二段：这里可以写翻到这些照片时想到的事情。】
+                    </p>
+
+                </section>
+
+
+
+                <!-- 她 -->
+
+                <section
+                    class="portrait-story"
+                    id="portraitStory">
+                </section>
+
+
+
+                <div class="letter-quote">
+
+                    <span class="placeholder">
+                        【这里可以单独留一句很短的话。】
+                    </span>
+
+                </div>
+
+
+
+                <!-- 日常 -->
+
+                <section
+                    class="daily-story"
+                    id="dailyStory">
+                </section>
+
+
+
+                <!-- 第三段 -->
+
+                <section class="letter-text-block">
+
+                    <p class="placeholder">
+                        【第三段：这里写一点关于那些很普通的小事。】
+                    </p>
+
+                    <p class="placeholder">
+                        【吃饭、出去玩、拍照、随手记下来的东西，都可以写一点。】
+                    </p>
+
+                </section>
+
+
+
+                <!-- 我们 -->
+
+                <section
+                    class="couple-story"
+                    id="coupleStory">
+                </section>
+
+
+
+                <!-- 第四段 -->
+
+                <section class="letter-text-block">
+
+                    <p class="placeholder">
+                        【第四段：这里写关于“我们”的话。】
+                    </p>
+
+                </section>
+
+
+
+                <!-- 最后 -->
+
+                <section class="letter-ending">
+
+                    <div class="ending-line">
+                    </div>
+
+                    <p class="placeholder">
+                        【最后一段：这里写你真正想留下来的最后几句话。】
+                    </p>
+
+                    <p class="placeholder">
+                        【不用写得很长。】
+                    </p>
+
+                    <div class="signature">
+                        【落款】
+                    </div>
+
+                </section>
+
+
+            </article>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- 漂浮爱心 -->
+
+    <div
+        class="floating-hearts"
+        id="hearts">
+    </div>
+
+
+
+    <!-- 图片放大 -->
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        onclick="closeLightbox()">
+
+        <img
+            id="lightboxImage"
+            src=""
+            alt="">
+
+    </div>
+
+
+
+    <script>
+
+        /* =========================
+           页面状态
+           ========================= */
+
+        let cakeClicked = false;
+
+        let letterOpened = false;
+
+        let giftOpened = false;
+
+
+
+        /* =========================
+           切换页面
+           ========================= */
+
+        function goToPage(n) {
+
+            document
+                .querySelectorAll(
+                    '.nav button'
+                )
+                .forEach(
+                    button => {
+
+                        button
+                            .classList
+                            .remove(
+                                'active'
+                            );
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    '.page'
+                )
+                .forEach(
+                    page => {
+
+                        page
+                            .classList
+                            .remove(
+                                'show'
+                            );
+
+                    }
+                );
+
+
+            document
+                .getElementById(
+                    'nav' + n
+                )
+                .classList
+                .add(
+                    'active'
+                );
+
+
+            document
+                .getElementById(
+                    'page' + n
+                )
+                .classList
+                .add(
+                    'show'
+                );
+
+
+            document.body
+                .classList
+                .toggle(
+                    'farewell-mode',
+                    n === 5
+                );
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        }
+
+
+
+        /* =========================
+           原首页
+           ========================= */
+
+        function clickCake() {
+
+            if (cakeClicked) {
+                return;
+            }
+
+            cakeClicked = true;
+
+
+            document
+                .getElementById(
+                    'cake'
+                )
+                .innerHTML =
+                '🎉';
+
+
+            document
+                .getElementById(
+                    'hint1'
+                )
+                .innerHTML =
+                '生日快乐！';
+
+
+            document
+                .getElementById(
+                    'btn1'
+                )
+                .style
+                .display =
+                'inline-block';
+
+        }
+
+
+
+        /* =========================
+           原信封
+           ========================= */
+
+        function openLetter() {
+
+            if (letterOpened) {
+                return;
+            }
+
+            letterOpened = true;
+
+
+            document
+                .getElementById(
+                    'env'
+                )
+                .innerHTML =
+                '✨';
+
+
+            document
+                .getElementById(
+                    'hint2'
+                )
+                .innerHTML =
+                '';
+
+
+            setTimeout(
+                function () {
+
+                    document
+                        .getElementById(
+                            'env-box'
+                        )
+                        .style
+                        .display =
+                        'none';
+
+
+                    document
+                        .getElementById(
+                            'letter-box'
+                        )
+                        .style
+                        .display =
+                        'block';
+
+                },
+                300
+            );
+
+        }
+
+
+
+        /* =========================
+           原礼物
+           ========================= */
+
+        function openGift() {
+
+            if (giftOpened) {
+                return;
+            }
+
+            giftOpened = true;
+
+
+            document
+                .getElementById(
+                    'gift'
+                )
+                .innerHTML =
+                '✨';
+
+
+            document
+                .getElementById(
+                    'hint3'
+                )
+                .innerHTML =
+                '';
+
+
+            document
+                .getElementById(
+                    'gift-box'
+                )
+                .style
+                .display =
+                'block';
+
+        }
+
+
+
+        /* =========================
+           天数
+           ========================= */
+
+        function calcDays() {
+
+            const together =
+                new Date(
+                    '2024-05-25'
+                );
+
+
+            const today =
+                new Date();
+
+
+            const days =
+                Math.ceil(
+                    Math.abs(
+                        today -
+                        together
+                    ) /
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                );
+
+
+            document
+                .getElementById(
+                    'days'
+                )
+                .innerHTML =
+                days;
+
+        }
+
+
+        calcDays();
+
+
+
+        /* =====================================================
+           最后一页照片
+           ===================================================== */
+
+
+        /*
+            照片命名方式：
+
+            farewell01.jpg
+            farewell02.jpg
+            ...
+            farewell33.jpg
+
+            按你发给我的顺序命名。
+        */
+
+
+
+        /* 她 */
+
+        const portraitPhotos = [
+
+            'farewell01.jpg',
+
+            'farewell02.jpg',
+
+            'farewell03.jpg',
+
+            'farewell08.jpg',
+
+            'farewell11.jpg',
+
+            'farewell12.jpg',
+
+            'farewell13.jpg',
+
+            'farewell15.jpg',
+
+            'farewell20.jpg',
+
+            'farewell22.jpg',
+
+            'farewell23.jpg',
+
+            'farewell24.jpg',
+
+            'farewell25.jpg',
+
+            'farewell26.jpg',
+
+            'farewell27.jpg',
+
+            'farewell30.jpg',
+
+            'farewell31.jpg',
+
+            'farewell32.jpg',
+
+            'farewell33.jpg'
+
+        ];
+
+
+
+        /* 日常物件 */
+
+        const dailyPhotos = [
+
+            'farewell21.jpg',
+
+            'farewell28.jpg',
+
+            'farewell29.jpg',
+
+            'farewell07.jpg',
+
+            'farewell16.jpg',
+
+            'farewell17.jpg'
+
+        ];
+
+
+
+        /* 我们 */
+
+        const couplePhotos = [
+
+            'farewell04.jpg',
+
+            'farewell05.jpg',
+
+            'farewell09.jpg',
+
+            'farewell10.jpg',
+
+            'farewell14.jpg',
+
+            'farewell18.jpg',
+
+            'farewell19.jpg'
+
+        ];
+
+
+
+        /* =========================
+           渲染她
+           ========================= */
+
+        function renderPortraitStory() {
+
+            const box =
+                document
+                    .getElementById(
+                        'portraitStory'
+                    );
+
+
+            portraitPhotos
+                .forEach(
+                    function (src) {
+
+                        const card =
+                            document
+                                .createElement(
+                                    'div'
+                                );
+
+
+                        card.className =
+                            'letter-photo';
+
+
+                        const img =
+                            document
+                                .createElement(
+                                    'img'
+                                );
+
+
+                        img.src =
+                            src;
+
+
+                        img.loading =
+                            'lazy';
+
+
+                        img.alt =
+                            '';
+
+
+                        img.onclick =
+                            function () {
+
+                                openLightbox(
+                                    src
+                                );
+
+                            };
+
+
+                        card
+                            .appendChild(
+                                img
+                            );
+
+
+                        box
+                            .appendChild(
+                                card
+                            );
+
+                    }
+                );
+
+        }
+
+
+
+        /* =========================
+           渲染日常
+           ========================= */
+
+        function renderDailyStory() {
+
+            const box =
+                document
+                    .getElementById(
+                        'dailyStory'
+                    );
+
+
+            dailyPhotos
+                .forEach(
+                    function (src) {
+
+                        const item =
+                            document
+                                .createElement(
+                                    'div'
+                                );
+
+
+                        item.className =
+                            'daily-item';
+
+
+                        const img =
+                            document
+                                .createElement(
+                                    'img'
+                                );
+
+
+                        img.src =
+                            src;
+
+
+                        img.loading =
+                            'lazy';
+
+
+                        img.alt =
+                            '';
+
+
+                        img.onclick =
+                            function () {
+
+                                openLightbox(
+                                    src
+                                );
+
+                            };
+
+
+                        item
+                            .appendChild(
+                                img
+                            );
+
+
+                        box
+                            .appendChild(
+                                item
+                            );
+
+                    }
+                );
+
+        }
+
+
+
+        /* =========================
+           渲染我们
+           ========================= */
+
+        function renderCoupleStory() {
+
+            const box =
+                document
+                    .getElementById(
+                        'coupleStory'
+                    );
+
+
+            couplePhotos
+                .forEach(
+                    function (src) {
+
+                        const card =
+                            document
+                                .createElement(
+                                    'div'
+                                );
+
+
+                        card.className =
+                            'couple-card';
+
+
+                        const img =
+                            document
+                                .createElement(
+                                    'img'
+                                );
+
+
+                        img.src =
+                            src;
+
+
+                        img.loading =
+                            'lazy';
+
+
+                        img.alt =
+                            '';
+
+
+                        img.onclick =
+                            function () {
+
+                                openLightbox(
+                                    src
+                                );
+
+                            };
+
+
+                        card
+                            .appendChild(
+                                img
+                            );
+
+
+                        box
+                            .appendChild(
+                                card
+                            );
+
+                    }
+                );
+
+        }
+
+
+
+        renderPortraitStory();
+
+        renderDailyStory();
+
+        renderCoupleStory();
+
+
+
+        /* =========================
+           图片放大
+           ========================= */
+
+        function openLightbox(src) {
+
+            document
+                .getElementById(
+                    'lightboxImage'
+                )
+                .src =
+                src;
+
+
+            document
+                .getElementById(
+                    'lightbox'
+                )
+                .classList
+                .add(
+                    'show'
+                );
+
+        }
+
+
+        function closeLightbox() {
+
+            document
+                .getElementById(
+                    'lightbox'
+                )
+                .classList
+                .remove(
+                    'show'
+                );
+
+        }
+
+
+
+        /* =========================
+           爱心
+           ========================= */
+
+        const hearts = [
+            '❤️',
+            '💕',
+            '💖',
+            '💗',
+            '💓',
+            '💝'
+        ];
+
+
+        const heartContainer =
+            document
+                .getElementById(
+                    'hearts'
+                );
+
+
+        setInterval(
+            function () {
+
+                const heart =
+                    document
+                        .createElement(
+                            'div'
+                        );
+
+
+                heart.className =
+                    'floating-heart';
+
+
+                heart.innerHTML =
+                    hearts[
+                        Math.floor(
+                            Math.random() *
+                            hearts.length
+                        )
+                    ];
+
+
+                heart.style.left =
+                    Math.random() *
+                    100 +
+                    '%';
+
+
+                heart.style.animationDuration =
+                    (
+                        Math.random() *
+                        3 +
+                        4
+                    ) +
+                    's';
+
+
+                heartContainer
+                    .appendChild(
+                        heart
+                    );
+
+
+                setTimeout(
+                    function () {
+
+                        heart.remove();
+
+                    },
+                    7000
+                );
+
+            },
+            800
+        );
+
+
+
+        /* =========================
+           ESC 关闭图片
+           ========================= */
+
+        document
+            .addEventListener(
+                'keydown',
+                function (event) {
+
+                    if (
+                        event.key ===
+                        'Escape'
+                    ) {
+
+                        closeLightbox();
+
+                    }
+
+                }
+            );
+
+    </script>
+
+
 </body>
+
 </html>
