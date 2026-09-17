@@ -1202,6 +1202,408 @@
             }
         }
 
+        /* =========================================================
+   最后一页照片比例修正版
+   所有图片保持原比例，不再强制裁切
+   ========================================================= */
+
+
+/* ---------- 通用 ---------- */
+
+.portrait-story,
+.couple-story {
+    align-items: start;
+}
+
+.letter-photo img,
+.daily-item img,
+.couple-card img {
+    display: block;
+
+    width: 100%;
+
+    height: auto !important;
+
+    max-width: 100%;
+
+    object-fit: contain !important;
+}
+
+
+/* =========================================================
+   第一组：她
+   ========================================================= */
+
+.portrait-story {
+    display: grid;
+
+    grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+    gap:
+        30px
+        22px;
+
+    align-items: start;
+
+    margin:
+        55px 0
+        80px;
+}
+
+
+/* 默认竖图：两列 */
+
+.portrait-story .letter-photo {
+    grid-column:
+        span 6 !important;
+
+    margin-top:
+        0 !important;
+
+    align-self: start;
+
+    transform:
+        rotate(-0.35deg) !important;
+}
+
+
+/* 偶数张轻微反方向 */
+
+.portrait-story
+.letter-photo:nth-child(even) {
+    transform:
+        rotate(0.35deg)
+        translateY(18px)
+        !important;
+}
+
+
+/* 横图自动变成大图 */
+
+.portrait-story
+.letter-photo.is-landscape {
+    grid-column:
+        2 / span 10 !important;
+
+    width: 100%;
+
+    margin:
+        18px auto
+        28px !important;
+
+    transform:
+        rotate(0deg)
+        !important;
+}
+
+
+/* 正方形 */
+
+.portrait-story
+.letter-photo.is-square {
+    grid-column:
+        4 / span 6 !important;
+
+    transform:
+        rotate(-0.3deg)
+        !important;
+}
+
+
+/* 特别长的竖图稍微窄一点 */
+
+.portrait-story
+.letter-photo.is-tall {
+    grid-column:
+        span 5 !important;
+}
+
+
+/* =========================================================
+   第二组：日常
+   改成真正的瀑布流
+   ========================================================= */
+
+.daily-story {
+    display: block !important;
+
+    columns: 3;
+
+    column-gap: 16px;
+
+    margin:
+        55px 0
+        85px;
+}
+
+
+.daily-story .daily-item {
+    display: inline-block;
+
+    width: 100%;
+
+    margin:
+        0 0
+        16px;
+
+    break-inside: avoid;
+
+    vertical-align: top;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    border-radius: 3px;
+
+    transform:
+        none !important;
+}
+
+
+.daily-story img {
+    width: 100%;
+
+    height: auto !important;
+
+    object-fit: contain !important;
+
+    border-radius: 3px;
+}
+
+
+/* =========================================================
+   第三组：我们
+   ========================================================= */
+
+.couple-story {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        28px
+        22px;
+
+    align-items: start;
+
+    margin:
+        65px 0
+        90px;
+}
+
+
+.couple-card {
+    align-self: start;
+
+    height: auto;
+
+    padding:
+        8px
+        8px
+        25px;
+
+    transform:
+        rotate(-0.4deg)
+        !important;
+}
+
+
+.couple-card:nth-child(even) {
+    transform:
+        rotate(0.4deg)
+        translateY(15px)
+        !important;
+}
+
+
+/* 合照里的横图单独放大 */
+
+.couple-card.is-landscape {
+    grid-column:
+        1 / -1;
+
+    width: 84%;
+
+    justify-self: center;
+
+    margin:
+        20px 0;
+
+    transform:
+        rotate(0deg)
+        !important;
+}
+
+
+/* 正方形照片稍窄 */
+
+.couple-card.is-square {
+    width: 88%;
+
+    justify-self: center;
+}
+
+
+/* 特别长的竖图 */
+
+.couple-card.is-tall {
+    width: 88%;
+
+    justify-self: center;
+}
+
+
+/* =========================================================
+   手机
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* 信纸左右稍微多留一点 */
+
+    .letter {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+
+    /* 她 */
+
+    .portrait-story {
+        gap:
+            18px
+            9px;
+
+        margin:
+            40px 0
+            55px;
+    }
+
+
+    .portrait-story
+    .letter-photo {
+        grid-column:
+            span 6 !important;
+
+        margin-top:
+            0 !important;
+    }
+
+
+    .portrait-story
+    .letter-photo:nth-child(even) {
+        transform:
+            rotate(0.3deg)
+            translateY(8px)
+            !important;
+    }
+
+
+    .portrait-story
+    .letter-photo.is-landscape {
+        grid-column:
+            1 / -1 !important;
+
+        width: 94%;
+
+        justify-self: center;
+
+        margin:
+            12px auto
+            22px !important;
+    }
+
+
+    .portrait-story
+    .letter-photo.is-square {
+        grid-column:
+            3 / span 8 !important;
+
+        width: 100%;
+    }
+
+
+    .portrait-story
+    .letter-photo.is-tall {
+        grid-column:
+            span 6 !important;
+    }
+
+
+    /* 日常 */
+
+    .daily-story {
+        columns: 2;
+
+        column-gap: 8px;
+
+        margin:
+            45px 0
+            65px;
+    }
+
+
+    .daily-story
+    .daily-item {
+        margin-bottom: 8px;
+    }
+
+
+    .daily-story img {
+        height: auto !important;
+    }
+
+
+    /* 我们 */
+
+    .couple-story {
+        gap:
+            16px
+            9px;
+
+        margin:
+            50px 0
+            70px;
+    }
+
+
+    .couple-card {
+        padding:
+            5px
+            5px
+            15px;
+    }
+
+
+    .couple-card:nth-child(even) {
+        transform:
+            rotate(0.3deg)
+            translateY(7px)
+            !important;
+    }
+
+
+    .couple-card.is-landscape {
+        grid-column:
+            1 / -1;
+
+        width: 96%;
+
+        margin:
+            10px auto
+            18px;
+    }
+
+
+    .couple-card.is-square,
+    .couple-card.is-tall {
+        width: 100%;
+    }
+
+}
     </style>
 </head>
 
@@ -2545,6 +2947,119 @@
         renderDailyStory();
 
         renderCoupleStory();
+        /* =====================================================
+   自动识别照片比例
+   ===================================================== */
+
+function detectPhotoRatios() {
+
+    const photos = document.querySelectorAll(
+        '#portraitStory img, #dailyStory img, #coupleStory img'
+    );
+
+
+    photos.forEach(function (img) {
+
+        function applyRatio() {
+
+            const width =
+                img.naturalWidth;
+
+            const height =
+                img.naturalHeight;
+
+
+            if (!width || !height) {
+                return;
+            }
+
+
+            const ratio =
+                width / height;
+
+
+            const wrapper =
+                img.parentElement;
+
+
+            wrapper.classList.remove(
+                'is-landscape',
+                'is-square',
+                'is-portrait',
+                'is-tall'
+            );
+
+
+            /*
+                横图
+            */
+
+            if (ratio > 1.1) {
+
+                wrapper.classList.add(
+                    'is-landscape'
+                );
+
+            }
+
+            /*
+                接近正方形
+            */
+
+            else if (ratio >= 0.9) {
+
+                wrapper.classList.add(
+                    'is-square'
+                );
+
+            }
+
+            /*
+                特别长的竖图
+            */
+
+            else if (ratio < 0.64) {
+
+                wrapper.classList.add(
+                    'is-tall'
+                );
+
+            }
+
+            /*
+                普通竖图
+            */
+
+            else {
+
+                wrapper.classList.add(
+                    'is-portrait'
+                );
+
+            }
+
+        }
+
+
+        if (img.complete) {
+
+            applyRatio();
+
+        } else {
+
+            img.addEventListener(
+                'load',
+                applyRatio
+            );
+
+        }
+
+    });
+
+}
+
+
+detectPhotoRatios();
 
 
 
